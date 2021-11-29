@@ -1,3 +1,6 @@
-public class Soil {
+public enum Soil {
+    Sandy,
+    Clay,
+    Peat
 
 }
