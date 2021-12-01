@@ -1,21 +1,18 @@
 public class Cultivation {
-    private static int generator =1;
-    private int id, water, temperature, profit, cost, singleLifeTime, plantationLifeTime;
+    private int id;
     private String name;
+    private int water;
+    private int temperature;
     private Soil soil;
     private growthType growthType;
 
-    public Cultivation(String name, int water, int temperature, Soil ground, growthType growthType, int cost, int profit, int singleLifeTime, int plantationLifeTime) {
-        this.id= generator++;
+    public Cultivation(int id,String name, int water, int temperature, Soil ground, growthType growthType){
+        this.id= id;
         this.name=name;
         this.water = water;
         this.temperature = temperature;
         this.soil = ground;
         this.growthType = growthType;
-        this.cost = cost;
-        this.profit = profit;
-        this.singleLifeTime = singleLifeTime;
-        this.plantationLifeTime = plantationLifeTime;
     }
 
     public String getName() {
@@ -38,21 +35,14 @@ public class Cultivation {
         return growthType;
     }
 
-    public int getCost() {
-        return cost;
+    public String toString() {
+        return "Cultivation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", water=" + water +
+                ", temperature=" + temperature +
+                ", soil=" + soil +
+                ", growthType=" + growthType +
+                '}';
     }
-
-    public int getProfit() {
-        return profit;
-    }
-
-    public int getSingleLifeTime() {
-        return singleLifeTime;
-    }
-
-    public int getPlantationLifeTime() {
-        return plantationLifeTime;
-    }
-
-
 }
