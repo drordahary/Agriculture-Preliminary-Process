@@ -1,17 +1,21 @@
-public class Cultivation {
+import java.util.ListIterator;
+
+public class Cultivation implements ListIterator<Cultivation> {
     private int id;
     private String name;
     private int water;
     private int temperature;
+    private Season season;
     private Soil soil;
-    private growthType growthType;
+    private GrowthType growthType;
 
-    public Cultivation(int id,String name, int water, int temperature, Soil ground, growthType growthType){
+    public Cultivation(int id, String name, int water, int temperature,Season season, Soil soil, GrowthType growthType){
         this.id= id;
         this.name=name;
         this.water = water;
         this.temperature = temperature;
-        this.soil = ground;
+        this.season=season;
+        this.soil = soil;
         this.growthType = growthType;
     }
 
@@ -31,18 +35,63 @@ public class Cultivation {
         return soil;
     }
 
-    public growthType getGrowthType() {
+    public GrowthType getGrowthType() {
         return growthType;
     }
 
+
+    @Override
     public String toString() {
-        return "Cultivation{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", water=" + water +
-                ", temperature=" + temperature +
-                ", soil=" + soil +
-                ", growthType=" + growthType +
-                '}';
+        return name+":\n" +
+                "id: " + id+"\n"+
+                "water: " + water + "\n" +
+                "temperature needed: " + temperature + "\n"+
+                "soil: " + soil + "\n"+
+                "growth Type: " + growthType +"\n\n\n";
+    }
+
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public Cultivation next() {
+        return null;
+    }
+
+    @Override
+    public boolean hasPrevious() {
+        return false;
+    }
+
+    @Override
+    public Cultivation previous() {
+        return null;
+    }
+
+    @Override
+    public int nextIndex() {
+        return 0;
+    }
+
+    @Override
+    public int previousIndex() {
+        return 0;
+    }
+
+    @Override
+    public void remove() {
+
+    }
+
+    @Override
+    public void set(Cultivation cultivation) {
+
+    }
+
+    @Override
+    public void add(Cultivation cultivation) {
+
     }
 }

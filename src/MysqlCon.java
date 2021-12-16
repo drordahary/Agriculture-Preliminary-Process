@@ -1,66 +1,81 @@
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
-import java.util.Collection;
 
-class MysqlCon{
-    public Soil translatorSoil (String soil) {
-        if (soil.equals("sandy"))
+class MysqlCon {
+
+    public static Soil translatorSoil(int soil) {
+        if (soil == 1)
             return Soil.Sandy;
-        if (soil.equals("clay"))
+        if (soil == 2)
             return Soil.Clay;
-        if (soil.equals("peat"))
+        if (soil == 3)
             return Soil.Peat;
-        return null;
-    }
-    public growthType translatorType (String type) {
-        if (type.equals("tree"))
-            return growthType.Tree;
-        if (type.equals("bush"))
-            return growthType.Bush;
-        if (type.equals("land"))
-            return growthType.land;
+        if (soil == 4)
+            return Soil.Loam;
         return null;
     }
 
-    private final static String url="jdbc:mysql://localhost:3306/agriculture_database?serverTimezone=UTC&verifyServerCertificate=false&useSSL=true&requireSSL=true";
-    private static LinkedList <Cultivation> Cultivations = new LinkedList<>();
+    public static Season translatorSeason(int season) {
+        if (season == 1)
+            return Season.winter;
+        if (season == 2)
+            return Season.summer;
+        if (season == 3)
+            return Season.all_year;
+        return null;
+    }
+
+    public static GrowthType translatorType(int type) {
+        if (type == 1)
+            return GrowthType.Tree;
+        if (type == 2)
+            return GrowthType.Bush;
+        if (type == 3)
+            return GrowthType.land;
+        return null;
+    }
+
+    private final static String url = "jdbc:mysql://localhost:3306/agriculture_database?serverTimezone=UTC&verifyServerCertificate=false&useSSL=true&requireSSL=true";
+    private static LinkedList<Cultivation> Cultivations = new LinkedList<Cultivation>() {
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for (Cultivation cultivation : Cultivations) {
+                sb.append(cultivation.toString());
+            }
+            return sb.toString();
+        }
+    };
+
     public MysqlCon() {
     }
 
-    public void connectToMySQL(){
-        try{
+    public void connectToMySQL() {
+        try {
             TimeZone timeZone = TimeZone.getTimeZone("UTC");
             TimeZone.setDefault(timeZone);
 
-            Connection con=DriverManager.getConnection(url,"root","root");
+            Connection con = DriverManager.getConnection(url, "root", "root");
 
-            Statement stmt=con.createStatement();
-            Statement stmt2=con.createStatement();
-            Statement stmt3=con.createStatement();
+            Statement stmt = con.createStatement();
             ResultSet rs;
-            ResultSet soil;
-            ResultSet growthType;
             int n;
-            for (n=1; stmt.executeQuery("select * from cultivations where cult_id="+n).last(); n++);
-            for (int i=1; i<=n; i++){
-                rs=stmt.executeQuery("select * from cultivations where cult_id="+i);
-                soil = stmt2.executeQuery("select s.name from soils s inner join cultivations c on s.soil_id=c.soil_id where cult_id="+i);
-                growthType = stmt3.executeQuery("select g.name from growthtypes g inner join cultivations c on g.growthType_id=c.soil_id where cult_id="+i);
-                while(rs.next() && soil.next() && growthType.next())
-                    Cultivations.add(new Cultivation(rs.getInt("cult_id"),rs.getString("name"), rs.getInt("water"),rs.getInt("temperature"),translatorSoil(soil.getString("name")), translatorType(growthType.getString("name"))));
-
-
-
-           }
+            for (n = 1; stmt.executeQuery("select * from cultivations where cult_id=" + n).last(); n++);
+            for (int i = 1; i <=n; i++) {
+                rs = stmt.executeQuery("select * from cultivations where cult_id=" + i);
+                while (rs.next()) {
+                    int id = rs.getInt("cult_id");
+                    String name = rs.getString("name");
+                    int water = rs.getInt("water");
+                    int temperature = rs.getInt("temperature");
+                    Season season1 = translatorSeason(rs.getInt("season"));
+                    Soil soil1 = translatorSoil(rs.getInt("soil_id"));
+                    GrowthType growthType1 = translatorType(rs.getInt("growthtype_id"));
+                    Cultivations.add(new Cultivation(id, name, water, temperature, season1, soil1, growthType1));
+                }
+            }
             con.close();
             System.out.println(Cultivations.toString());
-        }catch(Exception e){ System.out.println(e);}
-
-
+        } catch (Exception e) {}
     }
 }

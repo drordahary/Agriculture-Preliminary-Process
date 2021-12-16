@@ -1,6 +1,6 @@
 public enum Soil {
     Sandy,
     Clay,
-    Peat
-
-}
+    Peat,
+    Loam
+    }

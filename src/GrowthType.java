@@ -1,4 +1,4 @@
-public enum growthType {
+public enum GrowthType {
     Tree,
     Bush,
     land
