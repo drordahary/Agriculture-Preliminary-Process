@@ -1,3 +1,6 @@
+package Agriculture;
+
+import Attributes.Range;
 import Attributes.Soil;
 
 public class Area {

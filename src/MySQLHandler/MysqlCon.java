@@ -1,9 +1,8 @@
 package MySQLHandler;
-
+import Agriculture.Cultivation;
 import Attributes.GrowthType;
 import Attributes.Season;
 import Attributes.Soil;
-
 import java.sql.*;
 import java.util.*;
 

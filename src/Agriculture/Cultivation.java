@@ -1,3 +1,5 @@
+package Agriculture;
+
 import Attributes.GrowthType;
 import Attributes.Season;
 import Attributes.Soil;
@@ -22,7 +24,10 @@ public class Cultivation implements ListIterator<Cultivation> {
         this.soil = soil;
         this.growthType = growthType;
     }
-
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String GREEN = "\033[0;32m";
     public String getName() {
         return name;
     }
@@ -46,12 +51,12 @@ public class Cultivation implements ListIterator<Cultivation> {
 
     @Override
     public String toString() {
-        return id + ".\n" +
-                 name+":\n" +
-                "water: " + water + "\n" +
+        return GREEN + id + ".\n" +
+                RED + name+":\n" +
+                BLUE +"water: " + water + "\n" +
                 "temperature needed: " + temperature + "\n"+
                 "soil: " + soil + "\n"+
-                "growth Type: " + growthType +"\n\n\n";
+                "growth Type: " + growthType +"\n\n\n"+ RESET;
     }
 
     @Override

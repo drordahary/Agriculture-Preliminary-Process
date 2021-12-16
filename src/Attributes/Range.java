@@ -1,3 +1,5 @@
+package Attributes;
+
 public class Range {
     private int min;
     private int max;
