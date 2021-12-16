@@ -1,3 +1,7 @@
+import Attributes.GrowthType;
+import Attributes.Season;
+import Attributes.Soil;
+
 import java.util.ListIterator;
 
 public class Cultivation implements ListIterator<Cultivation> {
@@ -42,8 +46,8 @@ public class Cultivation implements ListIterator<Cultivation> {
 
     @Override
     public String toString() {
-        return name+":\n" +
-                "id: " + id+"\n"+
+        return id + ".\n" +
+                 name+":\n" +
                 "water: " + water + "\n" +
                 "temperature needed: " + temperature + "\n"+
                 "soil: " + soil + "\n"+

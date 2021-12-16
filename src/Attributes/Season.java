@@ -1,3 +1,5 @@
+package Attributes;
+
 public enum Season {
     winter,
     summer,

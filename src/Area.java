@@ -1,4 +1,4 @@
-
+import Attributes.Soil;
 
 public class Area {
     private int precipitation;

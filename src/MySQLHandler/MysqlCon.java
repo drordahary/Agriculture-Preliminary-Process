@@ -1,7 +1,13 @@
+package MySQLHandler;
+
+import Attributes.GrowthType;
+import Attributes.Season;
+import Attributes.Soil;
+
 import java.sql.*;
 import java.util.*;
 
-class MysqlCon {
+public class MysqlCon {
 
     public static Soil translatorSoil(int soil) {
         if (soil == 1)
