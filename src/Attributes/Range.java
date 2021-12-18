@@ -9,6 +9,11 @@ public class Range {
         this.max = max;
     }
 
+    @Override
+    public String toString() {
+        return "between " + this.min + " and " + this.max;
+    }
+
     public int getMin() {
         return min;
     }

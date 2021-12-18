@@ -1,6 +1,5 @@
 package Agriculture;
 
-import Attributes.GrowthType;
 import Attributes.Season;
 import Attributes.Soil;
 
@@ -9,20 +8,17 @@ import java.util.ListIterator;
 public class Cultivation implements ListIterator<Cultivation> {
     private int id;
     private String name;
-    private int water;
-    private int temperature;
+    private int water, temperature;
     private Season season;
     private Soil soil;
-    private GrowthType growthType;
 
-    public Cultivation(int id, String name, int water, int temperature,Season season, Soil soil, GrowthType growthType){
+    public Cultivation(int id, String name, int water, int temperature,Season season, Soil soil){
         this.id= id;
         this.name=name;
         this.water = water;
         this.temperature = temperature;
         this.season=season;
         this.soil = soil;
-        this.growthType = growthType;
     }
     public static final String RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
@@ -44,9 +40,6 @@ public class Cultivation implements ListIterator<Cultivation> {
         return soil;
     }
 
-    public GrowthType getGrowthType() {
-        return growthType;
-    }
 
 
     @Override
@@ -55,8 +48,7 @@ public class Cultivation implements ListIterator<Cultivation> {
                 RED + name+":\n" +
                 BLUE +"water: " + water + "\n" +
                 "temperature needed: " + temperature + "\n"+
-                "soil: " + soil + "\n"+
-                "growth Type: " + growthType +"\n\n\n"+ RESET;
+                "soil: " + soil + "\n" +"\n\n\n"+ RESET;
     }
 
     @Override

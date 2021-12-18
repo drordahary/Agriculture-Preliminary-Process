@@ -4,5 +4,8 @@ public enum Soil {
     Sandy,
     Clay,
     Peat,
-    Loam
+    Loam,
+    Basalt,
+    Tara_Rosa,
+    Las
     }
