@@ -1,6 +1,7 @@
 package MySQLHandler;
 import Agriculture.Area;
-import Agriculture.Cultivation;
+import Agriculture.Crop;
+import Attributes.Classification;
 import Attributes.Range;
 import Attributes.Season;
 import Attributes.Soil;
@@ -27,6 +28,23 @@ public class MysqlCon {
             return Soil.Las;
         return null;
     }
+   public static Classification translatorClassification(int classification) {
+        if (classification == 1)
+            return Classification.Vegetable;
+        if (classification == 2)
+            return Classification.Fruit;
+        if (classification == 3)
+            return Classification.Grain;
+        if (classification == 4)
+            return Classification.Berry;
+        if (classification == 5)
+            return Classification.RootVegetable;
+        if (classification == 6)
+            return Classification.Citrus;
+        if (classification == 7)
+            return Classification.Legumes;
+        return null;
+    }
 
     public static Season translatorSeason(int season) {
         if (season == 1)
@@ -39,13 +57,13 @@ public class MysqlCon {
     }
 
     private final static String url = "jdbc:mysql://localhost:3306/agriculture_database?serverTimezone=UTC&verifyServerCertificate=false&useSSL=true&requireSSL=true";
-    private static final LinkedList<Cultivation> Cultivations = new LinkedList<Cultivation>() {
+    private static final LinkedList<Crop> CROPS = new LinkedList<Crop>() {
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            sb.append(YELLOW+"Cultivations list:\n\n"+RESET);
-            for (Cultivation cultivation : Cultivations) {
-                sb.append(cultivation.toString());
+            sb.append(YELLOW+"Crops list:\n\n"+RESET);
+            for (Crop crop : CROPS) {
+                sb.append(crop.toString());
             }
             return sb.toString();
         }
@@ -73,22 +91,23 @@ public class MysqlCon {
             Connection con = DriverManager.getConnection(url, "root", "root");
 
             Statement stmt = con.createStatement();
-            ResultSet cults;
+            ResultSet crops;
             ResultSet areas;
             int nc;
             int na;
-            for (nc = 1; stmt.executeQuery("select * from cultivations where cult_id=" + nc).last(); nc++);
+            for (nc = 1; stmt.executeQuery("select * from crops where crop_id=" + nc).last(); nc++);
             for (na = 1; stmt.executeQuery("select * from areas where area_id=" + na).last(); na++);
             for (int i = 1; i <=nc; i++) {
-                cults = stmt.executeQuery("select * from cultivations where cult_id=" + i);
-                while (cults.next()) {
-                    int id = cults.getInt("cult_id");
-                    String name = cults.getString("name");
-                    int water = cults.getInt("water");
-                    int temperature = cults.getInt("temperature");
-                    Season season1 = translatorSeason(cults.getInt("season"));
-                    Soil soil1 = translatorSoil(cults.getInt("soil_id"));
-                    Cultivations.add(new Cultivation(id, name, water, temperature, season1, soil1));
+                crops = stmt.executeQuery("select * from crops where crop_id=" + i);
+                while (crops.next()) {
+                    int id = crops.getInt("crop_id");
+                    String name = crops.getString("name");
+                    int water = crops.getInt("water");
+                    int temperature = crops.getInt("temperature");
+                    Season season1 = translatorSeason(crops.getInt("season"));
+                    Soil soil1 = translatorSoil(crops.getInt("soil_id"));
+                    Classification classification1 = translatorClassification(crops.getInt("classification_id"));
+                    CROPS.add(new Crop(id, name, water, temperature, season1, soil1, classification1));
                 }
             }
                 for (int i = 1; i <=na; i++) {
@@ -98,14 +117,14 @@ public class MysqlCon {
                     String name = areas.getString("name");
                     Range summer_temperature = new Range (areas.getInt("summer_min_temp"), areas.getInt("summer_max_temp"));
                     Range winter_temperature = new Range (areas.getInt("winter_min_temp"), areas.getInt("winter_max_temp"));
-                    Range precipitation = new Range (areas.getInt("min_precipitation"), areas.getInt("max_precipitation"));
+                    Range rainfall = new Range (areas.getInt("min_rainfall"), areas.getInt("max_rainfall"));
                     Soil soil1 = translatorSoil(areas.getInt("soil_id"));
-                    Areas.add(new Area(id, name, precipitation, summer_temperature, winter_temperature, soil1));
+                    Areas.add(new Area(id, name, rainfall, summer_temperature, winter_temperature, soil1));
                 }
             }
 
             con.close();
-            System.out.println(Cultivations.toString());
+            System.out.println(CROPS.toString());
             System.out.println(Areas.toString());
         }
         catch (Exception e) {}

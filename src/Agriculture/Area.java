@@ -6,7 +6,7 @@ import Attributes.Soil;
 public class Area {
     private int id;
     private String name;
-    private Range precipitation;
+    private Range rainfall;
     private Range s_temperature;
     private Range w_temperature;
     private Soil soil;
@@ -14,7 +14,7 @@ public class Area {
     public Area(int id, String name , Range precipitation, Range s_temperature,Range w_temperature, Soil soil) {
         this.id = id;
         this.name = name;
-        this.precipitation = precipitation;
+        this.rainfall = precipitation;
         this.s_temperature = s_temperature;
         this.w_temperature = w_temperature;
         this.soil = soil;
@@ -29,8 +29,8 @@ public class Area {
         return id;
     }
 
-    public Range getPrecipitation() {
-        return precipitation;
+    public Range getRainfall() {
+        return rainfall;
     }
 
     public String getName() {
@@ -53,7 +53,7 @@ public class Area {
     public String toString() {
         return GREEN + id + ".\n" +
                 RED + name+":\n" +
-                BLUE +"precipitation is: " + precipitation.toString() + "\n" +
+                BLUE +"rainfall is: " + rainfall.toString() + "\n" +
                 BLUE +"temperature in winter is: " + w_temperature.toString() + "\n" +
                 BLUE +"temperature in summer is: " + s_temperature.toString() + "\n" +
                 "soil: " + soil + "\n" +"\n\n\n"+ RESET;

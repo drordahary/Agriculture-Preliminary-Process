@@ -1,24 +1,27 @@
 package Agriculture;
 
+import Attributes.Classification;
 import Attributes.Season;
 import Attributes.Soil;
 
 import java.util.ListIterator;
 
-public class Cultivation implements ListIterator<Cultivation> {
+public class Crop implements ListIterator<Crop> {
     private int id;
     private String name;
     private int water, temperature;
     private Season season;
     private Soil soil;
+    private Classification classification;
 
-    public Cultivation(int id, String name, int water, int temperature,Season season, Soil soil){
+    public Crop(int id, String name, int water, int temperature, Season season, Soil soil, Classification classification){
         this.id= id;
         this.name=name;
         this.water = water;
         this.temperature = temperature;
         this.season=season;
         this.soil = soil;
+        this.classification=classification;
     }
     public static final String RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
@@ -46,7 +49,8 @@ public class Cultivation implements ListIterator<Cultivation> {
     public String toString() {
         return GREEN + id + ".\n" +
                 RED + name+":\n" +
-                BLUE +"water: " + water + "\n" +
+                BLUE +"classification: " + classification + "\n"+
+                "water: " + water + "\n" +
                 "temperature needed: " + temperature + "\n"+
                 "soil: " + soil + "\n" +"\n\n\n"+ RESET;
     }
@@ -57,7 +61,7 @@ public class Cultivation implements ListIterator<Cultivation> {
     }
 
     @Override
-    public Cultivation next() {
+    public Crop next() {
         return null;
     }
 
@@ -67,7 +71,7 @@ public class Cultivation implements ListIterator<Cultivation> {
     }
 
     @Override
-    public Cultivation previous() {
+    public Crop previous() {
         return null;
     }
 
@@ -87,12 +91,12 @@ public class Cultivation implements ListIterator<Cultivation> {
     }
 
     @Override
-    public void set(Cultivation cultivation) {
+    public void set(Crop crop) {
 
     }
 
     @Override
-    public void add(Cultivation cultivation) {
+    public void add(Crop crop) {
 
     }
 }
